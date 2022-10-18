@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useGlobalContext } from "./store/context";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
@@ -12,15 +12,14 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRout from "./pages/ProtectedRout";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useGlobalContext();
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          {/* <Route path="products" element={<Products />} />
-          <Route path="products/:productId" element={<SingleProduct />} /> */}
           <Route path="products" element={<SharedProductsLayout />}>
             <Route index element={<Products />} />
             <Route path=":productId" element={<SingleProduct />} />
